@@ -32,6 +32,9 @@ app.get('/sign-up', (req, res) => {
   res.render('sign-up');
 })
 
+app.get('/404', (req, res) => {
+  res.render('404');
+})
 
 // app.post('/sign-up', function(req, res){
 //   const {email, password} = req.body
@@ -67,11 +70,13 @@ app.post('/login', (req, res) => {
   for(user of users) {
     if(user.email === email && user.password === password) {
       return res.redirect('/gameplay');
+    } else {
+      res.redirect('/404');
     }
+  // }
+  // res.status(400).json({
+  //   message: "wrong email or password"
   }
-  res.status(400).json({
-    message: "wrong email or password"
-  })
 })
 
 app.listen(port, () => {
