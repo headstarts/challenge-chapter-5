@@ -87,12 +87,12 @@ h5 {
   text-transform: none;
 }
 
-.email, .password, .remember-me, .submit {
+.username, .email, .password, .remember-me, .submit {
   padding: 0.5em;
   color:#ffffff
 }
 
-input[type="email"], input[type="password"] {
+input[type="username"], input[type="email"], input[type="password"] {
   width: calc(100% - 20px);
   height: 5vh;
 }

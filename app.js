@@ -19,11 +19,6 @@ app.get('/gameplay', (req, res) => {
   res.render('gameplay')
 })
 
-// app.get('/users', (req, res) => {
-//   console.log(users)
-//   res.status(200).json(users);
-// })
-
 app.get('/login', (req, res) => {
   res.render('login');
 })
@@ -36,24 +31,11 @@ app.get('/404', (req, res) => {
   res.render('404');
 })
 
-// app.post('/sign-up', function(req, res){
-//   const {email, password} = req.body
-//   const duplicate = userreg.duplicateCounter(email, 'db/users.json');
-//   if(duplicate){
-//     console.log("Email already registered")
-//     res.redirect('/')
-//   }
-//   else{
-//     userreg.adduser({email, password}, 'db/users.json')
-//     res.redirect('/login')
-//     console.log(duplicate)
-//   }
-  
-
-
+// sign-up
 app.post('/sign-up', (req, res) => {
-  const {email, password} = req.body
+  const {id, email, password} = req.body
   const newUser = {
+    id,
     email,
     password
   }
@@ -65,6 +47,7 @@ app.post('/sign-up', (req, res) => {
   res.status(201).redirect('/login');
 })
 
+// login
 app.post('/login', (req, res) => {
   const {email, password} = req.body
   for(user of users) {
@@ -73,9 +56,6 @@ app.post('/login', (req, res) => {
     } else {
       res.redirect('/404');
     }
-  // }
-  // res.status(400).json({
-  //   message: "wrong email or password"
   }
 })
 
