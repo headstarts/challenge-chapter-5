@@ -2,6 +2,7 @@ const express = require('express');
 const users = require('./db/users.json');
 const app = express();
 const port = 3600;
+const fs = require('fs');
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -18,10 +19,10 @@ app.get('/gameplay', (req, res) => {
   res.render('gameplay')
 })
 
-app.get('/users', (req, res) => {
-  console.log(users)
-  res.status(200).json(users);
-})
+// app.get('/users', (req, res) => {
+//   console.log(users)
+//   res.status(200).json(users);
+// })
 
 app.get('/login', (req, res) => {
   res.render('login');
@@ -31,6 +32,22 @@ app.get('/sign-up', (req, res) => {
   res.render('sign-up');
 })
 
+
+// app.post('/sign-up', function(req, res){
+//   const {email, password} = req.body
+//   const duplicate = userreg.duplicateCounter(email, 'db/users.json');
+//   if(duplicate){
+//     console.log("Email already registered")
+//     res.redirect('/')
+//   }
+//   else{
+//     userreg.adduser({email, password}, 'db/users.json')
+//     res.redirect('/login')
+//     console.log(duplicate)
+//   }
+  
+
+
 app.post('/sign-up', (req, res) => {
   const {email, password} = req.body
   const newUser = {
@@ -39,6 +56,9 @@ app.post('/sign-up', (req, res) => {
   }
 
   users.push(newUser);
+  console.log(users);
+
+  fs.writeFileSync("./db/users.json", JSON.stringify(users, null, 2), "utf-8");
   res.status(201).redirect('/login');
 })
 
